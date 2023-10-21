@@ -57,6 +57,21 @@ writersRouter.get("/:id", async (req, res, next) => {
     }
 }, handleErrors)
 
+writersRouter.delete("/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const response = await Writer.findByIdAndDelete(id);
+    if(!response){
+        res.status(400).json({message : "Writer doesn't found"})    
+    } 
+    res.json(response)
+
+    }catch(err){
+        console.log(err)
+        return next(err)
+    }
+}, handleErrors)
+
 
 
 export default writersRouter;
