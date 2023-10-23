@@ -2,6 +2,7 @@ import express from 'express';
 import 'dotenv/config';
 import client from './db/client.js';
 import writersRouter from './routes/writers.js';
+import registerRouter from './routes/register.js';
 import cors from 'cors';
 const port = process.env.PORT || 8000;
 
@@ -18,6 +19,7 @@ app.use(
 app.use(express.json());
 
 app.use('/api/writers', writersRouter);
+app.use('/api/register', registerRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -29,3 +31,5 @@ client.on('connected', () => {
     console.log(`Example app listening on port ${port}`)
   })
 });
+
+

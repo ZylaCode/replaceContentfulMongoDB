@@ -1,7 +1,9 @@
 import Writer from "../modules/Writer.js";
 import express from 'express';
 
+
 const writersRouter = express.Router();
+
 
 const handleErrors = (err, req, res, next) => {
     //Perform some action on the request or response
@@ -28,6 +30,8 @@ writersRouter.post("/", async (req, res, next) => {
         return next()
     }
 }, handleErrors);
+
+
 
 
 writersRouter.get("/", async (req, res, next) => {
@@ -71,6 +75,7 @@ writersRouter.delete("/:id", async (req, res, next) => {
         return next(err)
     }
 }, handleErrors)
+
 
 
 
