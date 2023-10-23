@@ -11,25 +11,7 @@ const secret = process.env.SECRET_TOKEN;
 const generateToken = (data) => {
     return jwt.sign(data, secret, {expiresIn: '1800s'})
 }
-/*
-const  authorizationMiddlewareFunction=(req, res, next) => {
-    const token = req.headers.authorization;
-    if(!token){
-        return res.sendStatus(401)
-    }
 
-   const tokenData = token.split(' ')[1];
-   console.log(tokenData)
-
-    jwt.verify(tokenData, secret, (err, user) => {
-        if(err){
-            return res.sendStatus(401)
-        }
-        req.user = user;
-        next();
-    })
-}
-*/
 registerRouter.get("/", async (req, res)=> {
     try{
     const response = await User.find();
@@ -58,7 +40,7 @@ registerRouter.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({email});
         if(!user){
-            return res.status(400).send('User does not find');
+            return res.status(400).send('User not found');
         }
         const validPassword = await bcrypt.compare(password, user.password)
         if(!validPassword){
