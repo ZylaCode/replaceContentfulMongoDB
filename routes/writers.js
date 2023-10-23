@@ -1,7 +1,9 @@
 import Writer from "../modules/Writer.js";
 import express from 'express';
 
+
 const writersRouter = express.Router();
+
 
 const handleErrors = (err, req, res, next) => {
     //Perform some action on the request or response
@@ -30,6 +32,8 @@ writersRouter.post("/", async (req, res, next) => {
 }, handleErrors);
 
 
+
+
 writersRouter.get("/", async (req, res, next) => {
     try {
         const response = await Writer.find();
@@ -56,6 +60,22 @@ writersRouter.get("/:id", async (req, res, next) => {
         return next(err)
     }
 }, handleErrors)
+
+writersRouter.delete("/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const response = await Writer.findByIdAndDelete(id);
+    if(!response){
+        res.status(400).json({message : "Writer doesn't found"})    
+    } 
+    res.json(response)
+
+    }catch(err){
+        console.log(err)
+        return next(err)
+    }
+}, handleErrors)
+
 
 
 
